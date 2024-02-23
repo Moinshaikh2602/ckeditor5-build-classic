@@ -32,6 +32,7 @@ import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformatio
 import { Alignment } from '@ckeditor/ckeditor5-alignment';
 import { CloudServices } from '@ckeditor/ckeditor5-cloud-services';
 import { Font } from '@ckeditor/ckeditor5-font';
+import { SourceEditing } from '@ckeditor/ckeditor5-source-editing';
 
 export default class ClassicEditor extends ClassicEditorBase {}
 
@@ -62,7 +63,8 @@ ClassicEditor.builtinPlugins = [
 	TextTransformation,
 	Alignment,
 	CloudServices,
-	Font
+	Font,
+	SourceEditing
 ];
 
 // Editor configuration.
@@ -91,7 +93,9 @@ ClassicEditor.defaultConfig = {
 			'insertTable',
 			'mediaEmbed',
 			'undo',
-			'redo'
+			'redo',
+			'|',
+			'sourceEditing',
 		]
 	},
 	image: {
