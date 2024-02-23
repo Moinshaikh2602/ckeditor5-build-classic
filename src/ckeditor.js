@@ -33,6 +33,8 @@ import { Alignment } from '@ckeditor/ckeditor5-alignment';
 import { CloudServices } from '@ckeditor/ckeditor5-cloud-services';
 import { Font } from '@ckeditor/ckeditor5-font';
 import { SourceEditing } from '@ckeditor/ckeditor5-source-editing';
+import { ImageBlock, ImageInline, ImageResize } from '@ckeditor/ckeditor5-image';
+import { Base64UploadAdapter } from '@ckeditor/ckeditor5-upload';
 
 export default class ClassicEditor extends ClassicEditorBase {}
 
@@ -52,6 +54,10 @@ ClassicEditor.builtinPlugins = [
 	ImageStyle,
 	ImageToolbar,
 	ImageUpload,
+	ImageResize,
+	ImageBlock,
+	ImageInline,
+	Base64UploadAdapter,
 	Indent,
 	Link,
 	List,
@@ -102,6 +108,13 @@ ClassicEditor.defaultConfig = {
 		toolbar: [
 			'imageStyle:full',
 			'imageStyle:side',
+			'imageStyle:inline',
+			'imageStyle:block',
+			'imageStyle:alignRight',
+			'imageStyle:alignBlockRight',
+			'imageStyle:alignCenter',
+			'imageStyle:alignLeft',
+			'imageStyle:alignBlockLeft',
 			'|',
 			'imageTextAlternative'
 		]
