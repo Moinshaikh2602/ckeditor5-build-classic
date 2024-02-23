@@ -5,6 +5,7 @@
 
 // The editor creator to use.
 import ClassicEditorBase from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import { BalloonEditor as BalloonEditorBase } from '@ckeditor/ckeditor5-editor-balloon';
 
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
 import UploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
@@ -35,11 +36,17 @@ import { Font } from '@ckeditor/ckeditor5-font';
 import { SourceEditing } from '@ckeditor/ckeditor5-source-editing';
 import { ImageBlock, ImageInline, ImageResize } from '@ckeditor/ckeditor5-image';
 import { Base64UploadAdapter } from '@ckeditor/ckeditor5-upload';
+import { TableCaption, TableCellProperties, TableColumnResize, TableProperties } from '@ckeditor/ckeditor5-table';
+import { BlockToolbar } from '@ckeditor/ckeditor5-ui';
+import { FindAndReplace } from '@ckeditor/ckeditor5-find-and-replace';
+import { HorizontalLine } from '@ckeditor/ckeditor5-horizontal-line';
+import { Strikethrough } from '@ckeditor/ckeditor5-basic-styles';
 
-export default class ClassicEditor extends ClassicEditorBase {}
+class ClassicEditor extends ClassicEditorBase {}
+class BalloonEditor extends BalloonEditorBase {}
 
-// Plugins to include in the build.
-ClassicEditor.builtinPlugins = [
+const PLUGINS = [
+	BlockToolbar,
 	Essentials,
 	UploadAdapter,
 	Autoformat,
@@ -65,13 +72,25 @@ ClassicEditor.builtinPlugins = [
 	Paragraph,
 	PasteFromOffice,
 	Table,
+	TableCaption,
+	TableCellProperties,
+	TableColumnResize,
+	TableProperties,
 	TableToolbar,
 	TextTransformation,
 	Alignment,
 	CloudServices,
 	Font,
-	SourceEditing
+	SourceEditing,
+	FindAndReplace,
+	HorizontalLine,
+	Strikethrough,
+	TextTransformation
 ];
+
+// Plugins to include in the build.
+ClassicEditor.builtinPlugins = PLUGINS
+BalloonEditor.builtinPlugins = PLUGINS
 
 // Editor configuration.
 ClassicEditor.defaultConfig = {
@@ -106,7 +125,6 @@ ClassicEditor.defaultConfig = {
 	},
 	image: {
 		toolbar: [
-			'imageStyle:full',
 			'imageStyle:side',
 			'imageStyle:inline',
 			'imageStyle:block',
@@ -116,16 +134,85 @@ ClassicEditor.defaultConfig = {
 			'imageStyle:alignLeft',
 			'imageStyle:alignBlockLeft',
 			'|',
-			'imageTextAlternative'
+			'imageTextAlternative',
+			'toggleImageCaption',
 		]
 	},
 	table: {
 		contentToolbar: [
 			'tableColumn',
 			'tableRow',
-			'mergeTableCells'
+			'mergeTableCells',
+			'tableCellProperties',
+			'tableProperties'
 		]
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
 	language: 'en'
 };
+
+BalloonEditor.defaultConfig = {
+	toolbar: {
+		items: [
+			'heading',
+			'bold',
+			'italic',
+			'link',
+			'findAndReplace',
+			'strikethrough',
+			'underline',
+			'-',
+			'fontFamily',
+			'fontBackgroundColor',
+			'fontColor',
+			'fontSize',
+			'|',
+			'alignment',
+			'indent',
+			'outdent'
+		],
+		shouldNotGroupWhenFull: true
+	},
+	language: 'en',
+	blockToolbar: [
+		'numberedList',
+		'bulletedList',
+		'|',
+		'imageUpload',
+		'mediaEmbed',
+		'insertTable',
+		'|',
+		'blockQuote',
+		'horizontalLine',
+		'|',
+		'undo',
+		'redo',
+	],
+	image: {
+		toolbar: [
+			'imageTextAlternative',
+			'toggleImageCaption',
+			'imageStyle:inline',
+			'imageStyle:block',
+			'imageStyle:side',
+			'imageStyle:alignLeft',
+			'imageStyle:alignRight',
+			'imageStyle:alignBlockLeft',
+			'imageStyle:alignBlockRight',
+			'imageStyle:alignCenter',
+		]
+	},
+	table: {
+		contentToolbar: [
+			'tableColumn',
+			'tableRow',
+			'mergeTableCells',
+			'tableCellProperties',
+			'tableProperties'
+		]
+	}
+}
+
+export default {
+	ClassicEditor , BalloonEditor
+}
